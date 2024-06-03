@@ -1,0 +1,48 @@
+= ADR-004: Adopt HTTPSidecar for Metrics, Go pprof, and Health Checks
+
+== Status
+Accepted
+
+== Context
+Our platform requires robust monitoring and diagnostics capabilities to ensure reliability and performance. Currently, exposing metrics, profiling data, and health checks from each service individually adds complexity and redundancy. We need a unified approach to expose these endpoints consistently across all services while minimizing the impact on the primary application logic.
+
+== Decision
+We will adopt an HTTPSidecar pattern to expose metrics, Go pprof, and health checks over HTTP. The sidecar will run alongside each service, handling these concerns independently of the main application logic.
+
+=== Key Points
+- **Metrics**:
+- Collect and expose application metrics (e.g., using Prometheus client libraries).
+- **Go pprof**:
+- Provide access to Go's built-in pprof profiling data for performance analysis.
+- **Health Checks**:
+- Implement HTTP endpoints to report the health status of the application.
+
+== Rationale
+- **Separation of Concerns**: By offloading metrics, profiling, and health checks to a sidecar, we keep the primary application code focused on business logic.
+- **Consistency**: A standard sidecar implementation ensures that all services expose these endpoints in a uniform manner.
+- **Simplicity**: Simplifies the main service implementation by removing the need to embed these capabilities directly.
+
+== Consequences
+- **Positive**:
+- Improved maintainability and readability of the main application code.
+- Easier and more consistent access to metrics, profiling, and health information.
+- Enhanced observability and diagnostics capabilities.
+- **Negative**:
+- Additional overhead of running a sidecar container for each service.
+- Initial setup and integration effort required to implement the sidecar pattern.
+
+== Alternatives Considered
+- **Direct Integration**:
+- Pros: Simpler deployment with fewer components.
+- Cons: Increases complexity in the main application code, harder to maintain consistency across services.
+- **Using a Centralized Monitoring Agent**:
+- Pros: Single point of integration for monitoring and diagnostics.
+- Cons: Potentially less flexible and may introduce a single point of failure.
+
+== Related Decisions
+- ADR-003: Adopt Prometheus for Metrics, Zap Logger for Logs, and Jaeger for Traces
+
+== References
+- [Prometheus Documentation](https://prometheus.io/docs/)
+- [Go pprof Documentation](https://pkg.go.dev/net/http/pprof)
+

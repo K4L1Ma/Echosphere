@@ -1,0 +1,62 @@
+= ADR-003: Adopt Prometheus for Metrics, Zap Logger for Logs, and Jaeger for Traces
+
+== Status
+Accepted
+
+== Context
+As our application grows, it becomes increasingly important to have comprehensive observability to monitor performance, diagnose issues, and ensure reliability. We need an integrated observability solution that covers metrics, logs, and traces to enhance our ability to monitor, debug, and optimize the application.
+
+== Decision
+We will adopt Prometheus for metrics collection, Zap logger for structured logging, and Jaeger for distributed tracing. This combination provides a robust observability stack that covers the three pillars of observability: metrics, logs, and traces.
+
+=== Key Points
+- **Prometheus (Metrics)**:
+- Time-series database optimized for real-time monitoring.
+- Powerful query language (PromQL) for querying metrics.
+- Extensive ecosystem with many exporters and integrations.
+- **Zap Logger (Logs)**:
+- High-performance, structured logging library for Go.
+- Supports context-rich, JSON-formatted logs for better log management and analysis.
+- **Jaeger (Traces)**:
+- Open-source tool for end-to-end distributed tracing.
+- Helps in understanding and troubleshooting performance issues in microservices architectures.
+
+== Rationale
+- **Prometheus**:
+- Real-time monitoring and alerting capabilities.
+- Rich ecosystem and community support.
+- Scalable and suitable for both application and infrastructure monitoring.
+- **Zap Logger**:
+- High-performance logging suitable for production environments.
+- Structured logs facilitate better log analysis and correlation.
+- Flexibility in log formatting and levels.
+- **Jaeger**:
+- Comprehensive tracing capabilities for understanding service interactions and dependencies.
+- Helps identify performance bottlenecks and latency issues.
+- Integration with Prometheus for enhanced observability.
+
+== Consequences
+- **Positive**:
+- Improved visibility into system performance and behavior.
+- Enhanced ability to diagnose and troubleshoot issues.
+- Unified observability stack covering metrics, logs, and traces.
+- **Negative**:
+- Learning curve for team members unfamiliar with these tools.
+- Initial setup and integration effort required.
+- Potential increase in resource usage for monitoring and logging.
+
+== Alternatives Considered
+- **Elastic Stack (Elasticsearch, Logstash, Kibana)**:
+- Pros: Comprehensive solution for logs and metrics, powerful visualization capabilities.
+- Cons: Higher operational complexity, resource-intensive.
+- **Datadog**:
+- Pros: All-in-one observability platform, ease of use, and powerful features.
+- Cons: Cost considerations, dependency on a third-party service.
+- **New Relic**:
+- Pros: Full-stack observability with extensive features.
+- Cons: Cost, potential vendor lock-in.
+
+== References
+- [Prometheus Documentation](https://prometheus.io/docs/)
+- [Zap Logger Documentation](https://pkg.go.dev/go.uber.org/zap)
+- [Jaeger Documentation](https://www.jaegertracing.io/docs/)

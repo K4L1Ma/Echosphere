@@ -1,0 +1,64 @@
+run:
+  modules-download-mode: readonly
+  concurrency: 4
+  timeout: 2m
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  errorlint:
+    errorf: true
+  govet:
+    shadow: true
+  gocyclo:
+    min-complexity: 15
+  lll:
+    line-length: 200
+  unparam:
+    check-exported: true
+  nakedret:
+    max-func-lines: 60
+  prealloc:
+    simple: true
+    range-loops: true
+    for-loops: false
+
+linters:
+  disable-all: true
+  enable:
+    - dupl
+    - errcheck
+    - errorlint
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - makezero
+    - predeclared
+    - protogetter
+    - revive
+    - staticcheck
+    - stylecheck
+    - thelper
+    - testifylint
+    - typecheck
+    - unconvert
+    - unused
+    - whitespace
+    - wsl
+  fast: false
+
+issues:
+  exclude-use-default: true
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gosec
+        - dupl
+        - gocyclo

@@ -1,0 +1,51 @@
+= ADR-005: Adopt gRPC Stream Server and Client Interceptors for Observability
+
+== Status
+Accepted
+
+== Context
+Our application relies heavily on gRPC for communication between services, including the use of gRPC streams for real-time data exchange. To ensure robust observability, we need a way to consistently monitor, log, and trace gRPC interactions. This includes capturing metrics, logging important events, and tracing requests across the system. Without a unified approach, implementing these features in each service separately would lead to redundancy and potential inconsistencies.
+
+== Decision
+We will adopt gRPC Stream Server and Client Interceptors to enhance observability for our gRPC communications. Interceptors will be used to capture and expose metrics, structured logs, and tracing information, providing comprehensive insights into gRPC interactions.
+
+=== Key Points
+- **Metrics**:
+- Collect and expose metrics for gRPC requests, including counts, latencies, and error rates.
+- **Logging**:
+- Use structured logging to capture essential information about gRPC calls.
+- **Tracing**:
+- Implement distributed tracing to follow requests across service boundaries and identify performance bottlenecks.
+
+== Rationale
+- **Consistency**: Using interceptors ensures that metrics, logs, and traces are consistently captured across all services.
+- **Separation of Concerns**: By handling observability concerns at the interceptor level, we keep the main application logic clean and focused on business functionality.
+- **Reusability**: Interceptors can be implemented once and reused across multiple services, reducing duplication and maintenance effort.
+- **Enhanced Observability**: Provides detailed insights into gRPC interactions, facilitating easier debugging, performance tuning, and issue resolution.
+
+== Consequences
+- **Positive**:
+- Improved visibility into gRPC communication and overall system performance.
+- Easier debugging and issue resolution through comprehensive logging and tracing.
+- Consistent and reusable observability components reduce development and maintenance overhead.
+- **Negative**:
+- Initial development and integration effort to implement and deploy the interceptors.
+- Potential performance overhead introduced by the additional logging, metrics collection, and tracing.
+
+== Alternatives Considered
+- **Manual Instrumentation**:
+- Pros: Fine-grained control over observability logic.
+- Cons: High maintenance effort, increased risk of inconsistencies, and duplication of code.
+- **External Proxies or Gateways**:
+- Pros: Centralized observability layer.
+- Cons: Potential single point of failure, additional latency, and complexity in managing an additional component.
+
+== Related Decisions
+- ADR-003: Adopt Prometheus for Metrics, Zap Logger for Logs, and Jaeger for Traces
+- ADR-004: Adopt HTTPSidecar for Metrics, Go pprof, and Health Checks
+
+== References
+- [gRPC Interceptor Documentation](https://grpc.io/docs/guides/interceptors/)
+- [Prometheus Documentation](https://prometheus.io/docs/)
+- [Zap Logger Documentation](https://pkg.go.dev/go.uber.org/zap)
+- [Jaeger Documentation](https://www.jaegertracing.io/docs/)

@@ -1,0 +1,34 @@
+= ADR-001: Adopt Hexagonal Architecture
+
+== Status
+Accepted
+
+== Context
+As the codebase grows and the application evolves, it is crucial to maintain a clean and modular architecture that allows for easy testing, flexibility in technology choices, and clear separation of concerns.
+
+== Decision
+We will adopt Hexagonal Architecture (also known as Ports and Adapters) for our application design. Hexagonal Architecture allows us to structure the application in a way that separates the core business logic from external concerns such as user interfaces, databases, and other services.
+
+=== Key Points
+- **Core Domain (Business Logic)**: The heart of the application containing business rules and policies.
+- **Ports**: Interfaces that define how the application communicates with the outside world and other systems.
+- **Adapters**: Implementations of the ports that handle the interaction with external systems (e.g., databases, web services, UI).
+
+== Rationale
+- **Separation of Concerns**: By isolating business logic from external systems, we can maintain a clean and understandable codebase.
+- **Testability**: Business logic can be tested in isolation without the need for complex setup or integration with external systems.
+- **Flexibility**: Allows for easy replacement or addition of external systems without affecting the core business logic.
+- **Maintainability**: Encourages writing modular code that is easier to understand, manage, and extend.
+
+== Consequences
+- **Positive**:
+  - Improved testability due to isolation of business logic.
+  - Increased flexibility in swapping out external components.
+  - Better maintainability through clear separation of responsibilities.
+- **Negative**:
+  - Initial learning curve for team members unfamiliar with Hexagonal Architecture.
+
+
+== References
+- [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/)
+- [Clean Architecture by Robert C. Martin](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)

@@ -1,0 +1,51 @@
+= ADR-002: Adopt gRPC Streams
+
+== Status
+Accepted
+
+== Context
+Our application requires efficient and real-time communication between services to handle high-frequency data updates and maintain synchronization. Traditional HTTP-based REST APIs have shown limitations in handling bi-directional streaming data efficiently. We need a robust solution that supports streaming capabilities to enhance performance and scalability.
+
+== Decision
+We will adopt gRPC Streams for communication between clients and servers. gRPC Streams provide efficient, low-latency communication with built-in support for bi-directional streaming, making it suitable for real-time data exchange scenarios.
+
+=== Key Points
+- **Unary RPC**: Standard request-response model.
+- **Server Streaming**: Server can stream a sequence of responses after a single client request.
+- **Client Streaming**: Client can send a sequence of requests and receive a single response.
+- **Bi-Directional Streaming**: Both client and server can send a sequence of messages to each other using a single, long-lived connection.
+
+== Rationale
+- **Performance**: gRPC uses HTTP/2, which provides features like multiplexing, header compression, and low latency, making it more efficient than traditional HTTP/1.1.
+- **Streaming Support**: Built-in support for various streaming patterns (server, client, and bi-directional), which are essential for our real-time data requirements.
+- **Strongly Typed Contracts**: gRPC uses Protocol Buffers (protobuf) for defining service contracts, ensuring type safety and reducing the likelihood of communication errors.
+- **Cross-Platform Compatibility**: gRPC supports multiple programming languages, facilitating interoperability between services written in different languages.
+
+== Consequences
+- **Positive**:
+- Enhanced performance and scalability for real-time data communication.
+- Simplified implementation of complex streaming scenarios.
+- Strongly typed interfaces improve reliability and maintainability.
+- **Negative**:
+- Learning curve for team members unfamiliar with gRPC and Protocol Buffers.
+- Initial setup and configuration effort required for transitioning to gRPC.
+
+== Alternatives Considered
+- **HTTP/1.1 REST APIs**:
+- Pros: Familiarity, simplicity, and wide adoption.
+- Cons: Limited support for real-time streaming, higher latency, and no built-in support for bi-directional communication.
+- **WebSockets**:
+- Pros: Bi-directional communication and real-time updates.
+- Cons: Lack of standardization for message formats, higher complexity in implementation, and not as efficient as gRPC in handling streaming data.
+- **GraphQL Subscriptions**:
+- Pros: Real-time updates and flexible query capabilities.
+- Cons: Higher complexity, especially for bi-directional streaming, and performance concerns compared to gRPC.
+
+== Related Decisions
+- ADR-001: Adopt Hexagonal Architecture
+
+== References
+- [gRPC Documentation](https://grpc.io/docs/)
+- [Protocol Buffers Documentation](https://developers.google.com/protocol-buffers)
+- [HTTP/2](https://http2.github.io/)
+
